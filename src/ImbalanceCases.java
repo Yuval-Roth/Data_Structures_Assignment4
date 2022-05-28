@@ -3,5 +3,5 @@ public enum ImbalanceCases {
     RIGHT_RIGHT,
     LEFT_RIGHT,
     RIGHT_LEFT,
-    NO_IMBALANCE;
+    NO_IMBALANCE
 }
