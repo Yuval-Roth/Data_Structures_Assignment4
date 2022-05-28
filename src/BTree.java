@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Stack;
 
 
 @SuppressWarnings("unchecked")
@@ -7,10 +8,11 @@ public class BTree<T extends Comparable<T>> {
 
     final private int maxDegree;
 
+
     protected Node<T> root = null;
     protected int size = 0;
     
-    //You may add fields here.
+    Stack<Object> stack;
 
     /**
      * Default Constructor for a 2-3 B-Tree.
@@ -32,6 +34,8 @@ public class BTree<T extends Comparable<T>> {
         }
         
         maxDegree = 2 * order;
+
+        stack = new Stack<>();
     }
 
     //You may add line of code to the "insert" function below.
@@ -41,17 +45,21 @@ public class BTree<T extends Comparable<T>> {
      * @param value - the inserted value
      */
     public void insert(T value) {
+
         if (root == null) {
             root = new Node<T>(null, maxDegree);
             root.addKey(value);
-        } else {
+            stack.push(new Object[]{BTreeActionType.INSERT,value});
+        }
+        else {
             Node<T> currentNode = root;
             boolean wasAdded = false;
             while (currentNode != null && !wasAdded) {
             	// If the node has 2t-1 keys then split it
                 if (currentNode.getNumberOfKeys() == maxDegree - 1) {
-                	split(currentNode);
-                	
+                	T medianValue = split(currentNode);
+                	stack.push(new Object[]{BTreeActionType.SPLIT,medianValue, currentNode == root});
+
                 	// Return to the parent and descend to the needed node
                 	currentNode = currentNode.parent != null ? currentNode.parent : root;
                     int idx = currentNode.getValuePosition(value);
@@ -61,6 +69,7 @@ public class BTree<T extends Comparable<T>> {
                 // Descend the tree and add the key to a leaf
                 if (currentNode.isLeaf()) {
                 	currentNode.addKey(value);
+                    stack.push(new Object[]{BTreeActionType.INSERT,value,currentNode == root});
                 	wasAdded = true;
                 } else {
                     int idx = currentNode.getValuePosition(value);
@@ -103,6 +112,7 @@ public class BTree<T extends Comparable<T>> {
         parent.addKey(medianValue);
         parent.addChild(left);
         parent.addChild(right);
+
 
         return medianValue;
     }
