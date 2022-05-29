@@ -4,35 +4,51 @@ import java.util.HashSet;
 
 public class AVLTreeTests {
     public static void main(String[] args) {
-        System.out.println("Test started! this might take a while...");
-        if(backTrackingAVLTree_FindErorrs(5,2));
-        if(backTrackingAVLTree_FindErorrs(15,2));
-        if(backTrackingAVLTree_FindErorrs(50,2));
-        if(backTrackingAVLTree_FindErorrs(250,2));
-        if(backTrackingAVLTree_FindErorrs(5,5));
-        if(backTrackingAVLTree_FindErorrs(15,5));
-        if(backTrackingAVLTree_FindErorrs(50,5));
-        if(backTrackingAVLTree_FindErorrs(250,5));
-        System.out.println("YOU ARE THE FUCKING BEST!");
+//        System.out.println("Test started! this might take a while...");
+//        if(backTrackingAVLTree_FindErrors(5,2)){
+//            if(backTrackingAVLTree_FindErrors(15,2)){
+//                if(backTrackingAVLTree_FindErrors(50,2)){
+//                    if(backTrackingAVLTree_FindErrors(250,2)){
+//                        if(backTrackingAVLTree_FindErrors(5,5)){
+//                            if(backTrackingAVLTree_FindErrors(15,5)){
+//                                if(backTrackingAVLTree_FindErrors(50,5)){
+//                                    if(backTrackingAVLTree_FindErrors(250,5)){
+//                                        System.out.println("YOU ARE THE FUCKING BEST!");
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+        AVLTreeDebugging(new int[]{125, -457, 383, -362, 438});
+
+
+
+
+
+
+
+
+
     }
-    public static void BtreeDebugging(int[] nums){
-        BacktrackingBTree<Integer> tree = new BacktrackingBTree<>();
-        Random random = new Random();
-        for (int i = 0; i < nums.length; ) {
-            int num = random.nextInt(500) * (Math.random() > 0.5 ? 1 : -1);
-            if (tree.contains(num) == false) {
-                tree.insert(num);
-                nums[i] = num;
-                i++;
-            }
+    public static void AVLTreeDebugging(int[] nums){
+        BacktrackingAVL tree = new BacktrackingAVL();
+        for (int i = 0; i < nums.length; i++) {
+            tree.insert(nums[i]);
         }
+        tree.printTree();
+        System.out.println("=====================");
         for(int i = 0; i< nums.length;i++){
             tree.Backtrack();
+            tree.printTree();
+            System.out.println("=====================");
         }
     }
 
 
-    public static boolean backTrackingAVLTree_FindErorrs(int count,int t) {
+    public static boolean backTrackingAVLTree_FindErrors(int count,int t) {
         int successCounter = 0;
         while (successCounter <= 30000000/(count*count)) {
             String[][] memory = new String[count][2];
@@ -73,17 +89,22 @@ public class AVLTreeTests {
                 System.out.println("Failed at BackTrack number "+instanceTracker);
                 System.out.print("input: "+numsArrayToString(nums));
                 System.out.println();
-                System.out.println("Expected: ");
-                System.out.println(memory[count-instanceTracker]);
+                System.out.println("Expected in order: ");
+                System.out.println(memory[count-1-instanceTracker-1][0]);
+                System.out.println("Expected pre order: ");
+                System.out.println(memory[count-1-instanceTracker-1][1]);
                 System.out.println();
                 System.out.println("==========================================================");
-                System.out.println("Actual: ");
-                System.out.println(tree.toString());
+                System.out.println("Actual in order: ");
+                System.out.println(inOrderToString(tree));
+                System.out.println("Actual pre order: ");
+                System.out.println(preOrderToString(tree));
+                System.out.println();
                 System.out.println("Show the failed instance? y/n");
                 Scanner scanner = new Scanner(System.in);
                 String answer = scanner.next();
                 if (answer.compareTo("y") == 0){
-                    showFailedInstanceAVLTree(nums,memory,instanceTracker);
+                    return showFailedInstanceAVLTree(nums,memory,instanceTracker);
                 }
                 return false;
             }
@@ -91,7 +112,7 @@ public class AVLTreeTests {
         System.out.println("Test passed: t: "+t+", count: "+count);
         return true;
     }
-    public static void showFailedInstanceAVLTree(int[] nums, String[][] memory, int instanceTracker) {
+    public static boolean showFailedInstanceAVLTree(int[] nums, String[][] memory, int instanceTracker) {
         System.out.println();
         System.out.println();
         System.out.println();
@@ -110,7 +131,7 @@ public class AVLTreeTests {
         System.out.println("==========================================================");
         System.out.println("Starting position after all insertions:");
         System.out.println();
-        System.out.print(tree);
+        tree.printTree();
         System.out.println("==========================================================");
         for (int i = 0; i < count; i++)
         {
@@ -119,7 +140,7 @@ public class AVLTreeTests {
                 tree.Backtrack();
                 System.out.println("Removed: " + nums[nums.length-1-i]);
                 System.out.println();
-                System.out.println(tree);
+                tree.printTree();
                 System.out.println();
                 if(memory[count-instanceTracker][0].compareTo(inOrderToString(tree)) != 0 |
                         memory[count-instanceTracker][1].compareTo(preOrderToString(tree)) != 0){
@@ -127,7 +148,7 @@ public class AVLTreeTests {
                 }
             }
             catch (Exception e) {
-                System.out.println("==========================================================");
+//                System.out.println("==========================================================");
                 System.out.println(nums[nums.length-1-i] + " was meant to be removed and it failed");
                 System.out.println("Exception occured here: " + e.getMessage());
                 System.out.println();
@@ -142,11 +163,13 @@ public class AVLTreeTests {
                 System.out.println("Actual pre order: ");
                 System.out.println(preOrderToString(tree));
                 System.out.println();
-                System.out.println("You can debug your code by calling this from main: |  BtreeDebugging(new int[]"+numsArrayToString(nums)+");  |");
-                break;
+                System.out.println("You can debug your code by calling this from main: |  AVLTreeDebugging(new int[]"+numsArrayToString(nums)+");  |");
+                return false;
             }
             System.out.println("==========================================================");
+            return false;
         }
+        return false;
     }
     public static String numsArrayToString(int[] nums){
         String numsArray = "{";
@@ -159,7 +182,9 @@ public class AVLTreeTests {
         return numsArray;
     }
     public static String inOrderToString(AVLTree tree){
-        return inOrderToString(tree.root,"");
+        if(tree.root != null)
+            return inOrderToString(tree.root,"");
+        else return "Empty Tree";
     }
     private static String inOrderToString(AVLTree.Node current,String output){
         if(current.left != null) output = inOrderToString(current.left,output);
@@ -168,7 +193,9 @@ public class AVLTreeTests {
         return output;
     }
     public static String preOrderToString(AVLTree tree){
-        return preOrderToString(tree.root,"");
+        if(tree.root != null)
+            return preOrderToString(tree.root,"");
+        else return "Empty Tree";
     }
     private static String preOrderToString(AVLTree.Node current,String output){
         output+= current.value+", ";

@@ -16,14 +16,8 @@ public class BTreeTests {
     }
     public static void BtreeDebugging(int[] nums){
         BacktrackingBTree<Integer> tree = new BacktrackingBTree<>();
-        Random random = new Random();
-        for (int i = 0; i < nums.length; ) {
-            int num = random.nextInt(500) * (Math.random() > 0.5 ? 1 : -1);
-            if (tree.contains(num) == false) {
-                tree.insert(num);
-                nums[i] = num;
-                i++;
-            }
+        for (int i = 0; i < nums.length; i++) {
+                tree.insert(nums[i]);
         }
         for(int i = 0; i< nums.length;i++){
             tree.Backtrack();

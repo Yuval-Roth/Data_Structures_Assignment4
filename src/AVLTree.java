@@ -99,6 +99,7 @@ public class AVLTree implements Iterable<Integer> {
     
 	// You may add additional code to the next two functions.
     protected Node rotateRight(Node y) {
+
         stack.push(new Object[]{AVLActionType.ROTATION,y, AVLActionType.RIGHTROTATE});
 
         Node x = y.left;
@@ -119,11 +120,13 @@ public class AVLTree implements Iterable<Integer> {
         y.updateHeight();
         x.updateHeight();
 
+
         // Return new root
         return x;
     }
 
     protected Node rotateLeft(Node x) {
+
         stack.push(new Object[]{AVLActionType.ROTATION,x,AVLActionType.LEFTROTATE});
 
         Node y = x.right;
@@ -143,6 +146,7 @@ public class AVLTree implements Iterable<Integer> {
         
         x.updateHeight();
         y.updateHeight();
+
 
         // Return new root
         return y;
