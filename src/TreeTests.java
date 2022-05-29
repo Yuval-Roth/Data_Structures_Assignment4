@@ -4,15 +4,16 @@ import java.util.Scanner;
 
 public class TreeTests {
     public static void main(String[] args) {
-        backTrackingBTree_FindErorrs(5,2);
-        backTrackingBTree_FindErorrs(15,2);
-        backTrackingBTree_FindErorrs(50,2);
-        backTrackingBTree_FindErorrs(250,2);
-        backTrackingBTree_FindErorrs(5,5);
-        backTrackingBTree_FindErorrs(15,5);
-        backTrackingBTree_FindErorrs(50,5);
-        backTrackingBTree_FindErorrs(250,5);
-
+        System.out.println("Test started! this might take a while...");
+        if(backTrackingBTree_FindErorrs(5,2));
+        if(backTrackingBTree_FindErorrs(15,2));
+        if(backTrackingBTree_FindErorrs(50,2));
+        if(backTrackingBTree_FindErorrs(250,2));
+        if(backTrackingBTree_FindErorrs(5,5));
+        if(backTrackingBTree_FindErorrs(15,5));
+        if(backTrackingBTree_FindErorrs(50,5));
+        if(backTrackingBTree_FindErorrs(250,5));
+        System.out.println("YOU ARE THE FUCKING BEST!");
     }
     public static void BtreeDebugging(int[] nums){
         BacktrackingBTree<Integer> tree = new BacktrackingBTree<>();
@@ -31,9 +32,9 @@ public class TreeTests {
     }
 
 
-    public static void backTrackingBTree_FindErorrs(int count,int t) {
+    public static boolean backTrackingBTree_FindErorrs(int count,int t) {
         int successCounter = 0;
-        while (successCounter <= 1000000/count) {
+        while (successCounter <= 30000000/(count*count)) {
             String[] memory = new String[count];
             BacktrackingBTree<Integer> tree = new BacktrackingBTree<>(t);
             Random random = new Random();
@@ -80,10 +81,11 @@ public class TreeTests {
                 if (answer.compareTo("y") == 0){
                     showFailedInstanceBTree(nums,memory,instanceTracker);
                 }
-                break;
+                return false;
             }
         }
         System.out.println("Test passed: t: "+t+", count: "+count);
+        return true;
     }
     public static void showFailedInstanceBTree(int[] nums, String[] memory, int instanceTracker) {
         System.out.println();
