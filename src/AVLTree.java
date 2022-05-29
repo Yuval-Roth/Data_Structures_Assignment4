@@ -230,6 +230,21 @@ public class AVLTree implements Iterable<Integer> {
             System.out.println();
         }
     }
+    public String toString()
+    {
+        if (root != null) return toString(root,"  ","");
+        else return("EmptyTree");
+    }
+    private String toString(AVLTree.Node current,String spaces,String output)
+    {
+        if(current.right != null) output = toString(current.right,spaces + "        ",output);
+
+        if (current.parent != null) output += spaces + current.value+"("+current.parent.value+")"+"\n";
+        else output += spaces + current.value+"(root)"+"\n";
+
+        if(current.left != null) output = toString(current.left,spaces + "        ",output);
+        return output;
+    }
 
     /***
      * A base class for any Iterator over Binary-Search Tree.

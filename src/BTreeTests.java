@@ -1,20 +1,37 @@
 import java.util.Random;
 import java.util.Scanner;
 
+
+/**
+ *&nbsp;&nbsp;&nbsp;&nbsp;    Instructions:                                       <br/><br/>
+ *
+ * mainTests() will run a set of tests of random instances of insertions
+ * and backtrackings.                                                             <br/><br/>
+ * The tests will halt if the algorithm finds a mistake in the backtracking
+ * and will prompt you to show the failed test and explain why it failed.         <br/><br/>
+ *
+ * At the end of the failed instance presentation, the last line will have
+ * a function call printed out which you can copy and paste to main
+ * and run it to debug the failed test
+
+ * @author Yuval Roth
+ */
 public class BTreeTests {
+
+
     public static void main(String[] args) {
-        System.out.println("Test started! this might take a while...");
-        if(backTrackingBTree_FindErorrs(5,2));
-        if(backTrackingBTree_FindErorrs(15,2));
-        if(backTrackingBTree_FindErorrs(50,2));
-        if(backTrackingBTree_FindErorrs(250,2));
-        if(backTrackingBTree_FindErorrs(5,5));
-        if(backTrackingBTree_FindErorrs(15,5));
-        if(backTrackingBTree_FindErorrs(50,5));
-        if(backTrackingBTree_FindErorrs(250,5));
-        System.out.println("YOU ARE THE FUCKING BEST!");
+        // main tests
+        mainTests();
+
+
+        /**   example call from end of failed instance presentation  **/
+        //BtreeDebugging(new int[]{-432, 434, -102, -218, 251});
     }
     public static void BtreeDebugging(int[] nums){
+
+        /** You can add code here for debugging
+         * The nums array contains the inserted numbers by the order of indexes **/
+
         BacktrackingBTree<Integer> tree = new BacktrackingBTree<>();
         for (int i = 0; i < nums.length; i++) {
                 tree.insert(nums[i]);
@@ -24,8 +41,14 @@ public class BTreeTests {
         }
     }
 
+    //==========================================
+    // DO NOT EDIT THE FUNCTIONS BELOW THIS LINE
+    //==========================================
 
-    public static boolean backTrackingBTree_FindErorrs(int count,int t) {
+    public static boolean backTrackingBTree_FindErrors(int count,int t) {
+
+        /** DON'T EDIT THIS FUNCTION */
+
         int successCounter = 0;
         while (successCounter <= 30000000/(count*count)) {
             String[] memory = new String[count];
@@ -54,7 +77,6 @@ public class BTreeTests {
                         throw e;
                     }
                 }
-//                System.out.println("Instace " + successCounter + ": success.");
                 successCounter++;
             } catch (Exception e) {
                 System.out.println("==========================================================");
@@ -81,6 +103,10 @@ public class BTreeTests {
         return true;
     }
     public static void showFailedInstanceBTree(int[] nums, String[] memory, int instanceTracker) {
+
+        /** DON'T EDIT THIS FUNCTION */
+
+
         System.out.println();
         System.out.println();
         System.out.println();
@@ -90,11 +116,9 @@ public class BTreeTests {
         System.out.println();
         int count = nums.length;
         BacktrackingBTree<Integer> tree = new BacktrackingBTree<>();
-        for (int i = 0; i < count; i++)
-        {
+        for (int i = 0; i < count; i++) {
             tree.insert(nums[i]);
         }
-
         System.out.println("input: "+numsArrayToString(nums));
         System.out.println("==========================================================");
         System.out.println("Starting position after all insertions:");
@@ -106,7 +130,7 @@ public class BTreeTests {
             try
             {
                 tree.Backtrack();
-                System.out.println("Removed: " + nums[nums.length-1-i]);
+                System.out.println("Allegedly removed: " + nums[nums.length-1-i]);
                 System.out.println();
                 System.out.println(tree);
                 System.out.println();
@@ -133,6 +157,9 @@ public class BTreeTests {
         }
     }
     public static String numsArrayToString(int[] nums){
+
+        /** DON'T EDIT THIS FUNCTION */
+
         String numsArray = "{";
         for (int i = 0; i < nums.length; i++) {
             if (i != nums.length - 1)
@@ -141,5 +168,31 @@ public class BTreeTests {
         }
         numsArray+="}";
         return numsArray;
+    }
+    public static void mainTests(){
+
+        /** DON'T EDIT THIS FUNCTION */
+
+        int t2 = 2; //degree 2
+        int t5 = 5; // degree 5
+
+        System.out.println("Test started! this might take a while...");
+        if(backTrackingBTree_FindErrors(5,t2)){
+            if(backTrackingBTree_FindErrors(15,t2)){
+                if(backTrackingBTree_FindErrors(50,t2)){
+                    if(backTrackingBTree_FindErrors(250,t2)){
+                        if(backTrackingBTree_FindErrors(5,t5)){
+                            if(backTrackingBTree_FindErrors(15,t5)){
+                                if(backTrackingBTree_FindErrors(50,t5)){
+                                    if(backTrackingBTree_FindErrors(250,t5)){
+                                        System.out.println("YOU ARE THE FUCKING BEST!");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
