@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class BacktrackingBTree<T extends Comparable<T>> extends BTree<T> {
 	// For clarity only, this is the default ctor created implicitly.
@@ -14,11 +15,11 @@ public class BacktrackingBTree<T extends Comparable<T>> extends BTree<T> {
 	//You are to implement the function Backtrack.
 	public void Backtrack() {
 		Object[] memory = (Object[])stack.pop();
-		T value = (T)memory[1];
 		BTreeActionType action = (BTreeActionType) memory[0];
+		T value = (T)memory[1];
 		Node<T> node = getNode(value);
 		node.removeKey(value);
-		while(((Object[])stack.peek())[0] == BTreeActionType.SPLIT){
+		while(stack.isEmpty() == false && ((Object[])stack.peek())[0] == BTreeActionType.SPLIT){
 			memory = (Object[])stack.pop();
 			boolean rootWasSplit = (boolean)memory[2];
 			T median = (T)memory[1];
@@ -28,24 +29,26 @@ public class BacktrackingBTree<T extends Comparable<T>> extends BTree<T> {
 			Node<T> leftChild = node.children[index];
 
 			//node is a root
-			if(rootWasSplit) {
-				root = leftChild;
-				leftChild.addKey(median);
+//			if(rootWasSplit) {
+//				System.out.println("RootWasSplit!");
+//				root = leftChild;
+//				leftChild.addKey(median);
+//
+//				for(int i = 0; i<rightChild.numOfKeys;i++){
+//					leftChild.addKey(rightChild.getKey(i));
+//				}
+//				if(rightChild.isLeaf() == false){
+//					for(int i = 0; i< rightChild.numOfChildren;i++){
+//						Node<T> child = rightChild.getChild(i);
+//						leftChild.addChild(child);
+//						child.parent = rightChild;
+//					}
+//				}
+//			}
 
-				for(int i = 0; i<rightChild.numOfKeys;i++){
-					leftChild.addKey(rightChild.getKey(i));
-				}
-				if(rightChild.isLeaf() == false){
-					for(int i = 0; i< rightChild.numOfChildren;i++){
-						Node<T> child = rightChild.getChild(i);
-						leftChild.addChild(child);
-						child.parent = rightChild;
-					}
-				}
-			}
+//			else{
+				if(node == root & root.numOfKeys == 1) root = node.getChild(node.indexOf(median));
 
-			//node is a leaf
-			else{
 				node.removeChild(index+1);
 				node.removeKey(median);
 
@@ -60,7 +63,7 @@ public class BacktrackingBTree<T extends Comparable<T>> extends BTree<T> {
 						child.parent = rightChild;
 					}
 				}
-			}
+//			}
 
 		}
 
@@ -79,15 +82,16 @@ public class BacktrackingBTree<T extends Comparable<T>> extends BTree<T> {
 	}
 	public static void main(String[] args){
 		BacktrackingBTree<Integer> tree = new BacktrackingBTree<>(2);
-		for(int i = 0; i< 12;i++){
-			tree.insert(i);
-			/*if(i == 10) */System.out.println(tree);
+		Random rand = new Random();
+		for(int i = 0; i< 250;i++){
+			tree.insert(rand.nextInt(500)*(Math.random() > 0.5 ? 1:-1));
+//			/*if(i == 10) */System.out.println(tree);
 		}
-		for(int i = 0; i< 3;i++){
+		for(int i = 0; i< 500;i++){
 			tree.Backtrack();
 			/*if(i == 10) */System.out.println(tree);
 		}
-		tree.Backtrack();
-		System.out.println(tree);
+//		tree.Backtrack();
+//		System.out.println(tree);
 	}
 }
