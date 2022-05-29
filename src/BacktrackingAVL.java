@@ -9,9 +9,34 @@ public class BacktrackingAVL extends AVLTree {
 
 	//You are to implement the function Backtrack.
     public void Backtrack() {
-        // You should remove the next two lines, after double-checking that the signature is valid!
-        IntegrityStatement.signature(); // Reminder!
-        throw new UnsupportedOperationException("You should implement this");
+
+        while(stack.isEmpty() == false && ((Object[])stack.peek())[0] == AVLActionType.ROTATION){
+            Object[] memory = (Object[])stack.pop();
+            Node node = (Node)memory[1];
+            AVLActionType action = (AVLActionType)memory[2];
+            switch (action){
+                case LEFTROTATE -> rotateRight(node);
+                case RIGHTROTATE -> rotateLeft(node);
+            }
+        }
+
+        Object[] memory = (Object[])stack.pop();
+        AVLActionType action = (AVLActionType) memory[0];
+        Node node = (Node)memory[1];
+
+        if(node != root){
+            if(node.parent.left == node){
+                node.parent.left = null;
+            }
+            else{
+                node.parent.right = null;
+            }
+        }
+        else{
+            root = null;
+        }
+
+
     }
     
     //Change the list returned to a list of integers answering the requirements

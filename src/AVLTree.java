@@ -3,6 +3,14 @@ import java.util.*;
 
 public class AVLTree implements Iterable<Integer> {
     // You may edit the following nested class:
+
+    public enum AVLActionType{
+        INSERT,
+        RIGHTROTATE,
+        LEFTROTATE,
+
+        ROTATION
+    }
     protected class Node {
     	public Node left = null;
     	public Node right = null;
@@ -12,6 +20,7 @@ public class AVLTree implements Iterable<Integer> {
 
     	public Node(int val) {
             this.value = val;
+            stack = new Stack<Object>();
         }
 
         public void updateHeight() {
@@ -49,6 +58,7 @@ public class AVLTree implements Iterable<Integer> {
 	    // Perform regular BST insertion
         if (node == null) {
         	Node insertedNode = new Node(value);
+            stack.push(new Object[]{AVLActionType.INSERT, insertedNode});
             return insertedNode;
         }
 
@@ -89,6 +99,8 @@ public class AVLTree implements Iterable<Integer> {
     
 	// You may add additional code to the next two functions.
     protected Node rotateRight(Node y) {
+        stack.push(new Object[]{AVLActionType.ROTATION,y, AVLActionType.RIGHTROTATE});
+
         Node x = y.left;
         Node T2 = x.right;
 
@@ -112,6 +124,8 @@ public class AVLTree implements Iterable<Integer> {
     }
 
     protected Node rotateLeft(Node x) {
+        stack.push(new Object[]{AVLActionType.ROTATION,x,AVLActionType.LEFTROTATE});
+
         Node y = x.right;
         Node T2 = y.left;
 

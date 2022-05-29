@@ -58,7 +58,7 @@ public class BTree<T extends Comparable<T>> {
             	// If the node has 2t-1 keys then split it
                 if (currentNode.getNumberOfKeys() == maxDegree - 1) {
                 	T medianValue = split(currentNode);
-                	stack.push(new Object[]{BTreeActionType.SPLIT,medianValue, currentNode == root});
+                	stack.push(new Object[]{BTreeActionType.SPLIT,medianValue});
 
                 	// Return to the parent and descend to the needed node
                 	currentNode = currentNode.parent != null ? currentNode.parent : root;
@@ -69,7 +69,7 @@ public class BTree<T extends Comparable<T>> {
                 // Descend the tree and add the key to a leaf
                 if (currentNode.isLeaf()) {
                 	currentNode.addKey(value);
-                    stack.push(new Object[]{BTreeActionType.INSERT,value,currentNode == root});
+                    stack.push(new Object[]{BTreeActionType.INSERT,value});
                 	wasAdded = true;
                 } else {
                     int idx = currentNode.getValuePosition(value);

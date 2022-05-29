@@ -21,7 +21,6 @@ public class BacktrackingBTree<T extends Comparable<T>> extends BTree<T> {
 		node.removeKey(value);
 		while(stack.isEmpty() == false && ((Object[])stack.peek())[0] == BTreeActionType.SPLIT){
 			memory = (Object[])stack.pop();
-			boolean rootWasSplit = (boolean)memory[2];
 			T median = (T)memory[1];
 			node = getNode(median);
 			int index = node.indexOf(median);
