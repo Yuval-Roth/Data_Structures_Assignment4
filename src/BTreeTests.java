@@ -13,16 +13,23 @@ import java.util.Scanner;
  * At the end of the failed instance presentation, the last line will have
  * a function call printed out which you can copy and paste to main
  * and run it to debug the failed test
-
+ *
+ * You can edit BtreeDebugging() as much as you like for debugging but don't
+ * edit anything else.
+ *
  * @author Yuval Roth
  */
 public class BTreeTests {
 
 
     public static void main(String[] args) {
+
+        boolean Read_The_Instructions = false;
+        if(Read_The_Instructions == false) throw new RuntimeException("READ THE INSTRUCTIONS FIRST!");
+
+
         // main tests
         mainTests();
-
 
         /**   example call from end of failed instance presentation  **/
         //BtreeDebugging(new int[]{-432, 434, -102, -218, 251});
