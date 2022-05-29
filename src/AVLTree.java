@@ -1,8 +1,5 @@
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
+import java.util.*;
+
 
 public class AVLTree implements Iterable<Integer> {
     // You may edit the following nested class:
@@ -35,7 +32,8 @@ public class AVLTree implements Iterable<Integer> {
     protected Node root;
     
     //You may add fields here.
-    
+    Stack<Object> stack;
+
     public AVLTree() {
     	this.root = null;
     }
