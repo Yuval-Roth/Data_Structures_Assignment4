@@ -4,8 +4,7 @@ import java.util.Scanner;
 
 public class TreeTests {
     public static void main(String[] args) {
-        backTrackingBTree_FindErorrs(5);
-
+        backTrackingBTree_FindErorrs(250);
 
     }
     public static void backTrackingBTree_FindErorrs(int count) {
@@ -15,12 +14,12 @@ public class TreeTests {
             Random random = new Random();
             int[] nums = new int[count];
             for (int i = 0; i < count; ) {
-                int num = random.nextInt(500)*(Math.random() > 0.5 ? 1:-1);
-                try {
+                int num = random.nextInt(500) * (Math.random() > 0.5 ? 1 : -1);
+                if (tree.contains(num) == false) {
                     tree.insert(num);
                     nums[i] = num;
                     i++;
-                } catch (Exception e) {}
+                }
             }
             try {
                 for (int i = 0; i < count; i++) {
@@ -64,14 +63,9 @@ public class TreeTests {
         System.out.println();
         int count = nums.length;
         BacktrackingBTree<Integer> tree = new BacktrackingBTree<>();
-        for (int i = 0; i < count;)
+        for (int i = 0; i < count; i++)
         {
-            try
-            {
-                tree.insert(nums[i]);
-                i++;
-            }
-            catch (Exception e) { }
+            tree.insert(nums[i]);
         }
 
         String numsArray = "{";
