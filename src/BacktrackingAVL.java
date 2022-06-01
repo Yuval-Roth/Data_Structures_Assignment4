@@ -94,10 +94,48 @@ public class BacktrackingAVL extends AVLTree {
 
     public int Rank(int value) {
 
+        if(root == null) throw new NoSuchElementException("root is null");
+
+        Node current = root;
+        int counter = 0;
+
+
+        while(current != null){
+
+            if(current.value == value){
+                if(current.left != null){
+                    counter+=current.left.size;
+                }
+                return counter;
+            }
+            if(current.value < value) {
+                if (current.left != null) {
+                    counter += current.left.size+1;
+                }
+                else counter +=1;
+                current = current.right;
+            }
+            else if ((current.value > value)){
+                current = current.left;
+            }
+        }
+        return counter;
+
+
     }
     public static void main(String[] args){
         BacktrackingAVL tree = new BacktrackingAVL();
-
+        tree.insert(6);
+        tree.insert(3);
+        tree.insert(7);
+        tree.insert(9);
+        tree.insert(11);
+        tree.insert(13);
+        tree.insert(17);
+        tree.insert(19);
+        tree.insert(23);
+        tree.printTree();
+        System.out.println(tree.Rank(11));
     }
 }
 
