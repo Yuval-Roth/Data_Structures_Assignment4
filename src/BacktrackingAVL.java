@@ -16,22 +16,17 @@ public class BacktrackingAVL extends AVLTree {
             AVLActionType action = (AVLActionType)memory[2];
             switch (action){
                 case LEFTROTATE:
-                    if(node.parent != null){
-                        rotateRight(node.parent);
-                    }else rotateRight(node);
+                    rotateRight(node.parent);
                     stack.pop();
                     break;
                 case RIGHTROTATE:
-                    if(node.parent != null){
-                        rotateLeft(node.parent);
-                    }
-                    else rotateLeft(node);
+                    rotateLeft(node.parent);
                     stack.pop();
                     break;
                 }
 
         }
-        if(stack.isEmpty() != false){
+        if(stack.isEmpty() == false){
             Object[] memory = (Object[])stack.pop();
             AVLActionType action = (AVLActionType) memory[0];
             Node node = (Node)memory[1];

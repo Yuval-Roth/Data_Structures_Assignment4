@@ -8,7 +8,6 @@ public class AVLTree implements Iterable<Integer> {
         INSERT,
         RIGHTROTATE,
         LEFTROTATE,
-
         ROTATION
     }
     protected class Node {
@@ -20,7 +19,6 @@ public class AVLTree implements Iterable<Integer> {
 
     	public Node(int val) {
             this.value = val;
-            stack = new Stack<Object>();
         }
 
         public void updateHeight() {
@@ -45,6 +43,7 @@ public class AVLTree implements Iterable<Integer> {
 
     public AVLTree() {
     	this.root = null;
+        stack = new Stack<Object>();
     }
     
     /*
@@ -84,13 +83,11 @@ public class AVLTree implements Iterable<Integer> {
             if (value > node.left.value) {
                 node.left = rotateLeft(node.left);
             }
-            
             node = rotateRight(node);
         } else if (balance < -1) {
             if (value < node.right.value) {
                 node.right = rotateRight(node.right);
             }
-            
             node = rotateLeft(node);
         }
 
@@ -101,6 +98,14 @@ public class AVLTree implements Iterable<Integer> {
     protected Node rotateRight(Node y) {
 
         stack.push(new Object[]{AVLActionType.ROTATION,y, AVLActionType.RIGHTROTATE});
+
+        Node yParent = y.parent;
+        boolean leftChild = false;
+        if(yParent != null){
+            if(yParent.left == y){
+                leftChild = true;
+            }
+        }
 
         Node x = y.left;
         Node T2 = x.right;
@@ -120,7 +125,12 @@ public class AVLTree implements Iterable<Integer> {
         y.updateHeight();
         x.updateHeight();
 
-
+        if(yParent != null){
+            if(leftChild){
+                yParent.left = y;
+            } else yParent.right = y;
+        }
+        else root = x;
         // Return new root
         return x;
     }
@@ -128,6 +138,14 @@ public class AVLTree implements Iterable<Integer> {
     protected Node rotateLeft(Node x) {
 
         stack.push(new Object[]{AVLActionType.ROTATION,x,AVLActionType.LEFTROTATE});
+
+        Node xParent = x.parent;
+        boolean leftChild = false;
+        if(xParent != null){
+            if(xParent.left == x){
+                leftChild = true;
+            }
+        }
 
         Node y = x.right;
         Node T2 = y.left;
@@ -147,7 +165,12 @@ public class AVLTree implements Iterable<Integer> {
         x.updateHeight();
         y.updateHeight();
 
-
+        if(xParent != null){
+            if(leftChild){
+                xParent.left = y;
+            } else xParent.right = y;
+        }
+        else root = y;
         // Return new root
         return y;
     }

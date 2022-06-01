@@ -24,11 +24,14 @@ import java.util.HashSet;
 public class AVLTreeTests {
     public static void main(String[] args) {
 
-        boolean Read_The_Instructions = true;
+        boolean Read_The_Instructions = false;
         if(Read_The_Instructions == false) throw new RuntimeException("READ THE INSTRUCTIONS FIRST!");
 
         // main tests
         mainTests();
+
+//        showFailedInstanceAVLTree(new int[]{399, -307, 41, -331, 481});
+
 
         /**   example call from end of failed instance presentation  **/
         //AVLTreeDebugging(new int[]{125, -457, 383, -362, 438});
@@ -150,7 +153,7 @@ public class AVLTreeTests {
                 System.out.println();
                 System.out.println(treeToString(tree));
                 System.out.println();
-                if(memory[count-instanceTracker].compareTo(treeToString(tree)) != 0 ){
+                if(memory[count-1-i].compareTo(treeToString(tree)) != 0 ){
                     throw new Exception("Expected and Actual are not the same");
                 }
             }
