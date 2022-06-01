@@ -59,7 +59,7 @@ public class AVLTreeTests {
     // DO NOT EDIT THE FUNCTIONS BELOW THIS LINE
     //==========================================
 
-    public static boolean backTrackingAVLTree_FindErrors(int count,int t) {
+    public static boolean backTrackingAVLTree_FindErrors(int count) {
 
         /** DON'T EDIT THIS FUNCTION */
 
@@ -124,7 +124,7 @@ public class AVLTreeTests {
                 return false;
             }
         }
-        System.out.println("Test passed: t: "+t+", count: "+count);
+        System.out.println("Test passed: count: "+count);
         return true;
     }
     public static boolean showFailedInstanceAVLTree(int[] nums, String[] memory, int instanceTracker) {
@@ -221,18 +221,15 @@ public class AVLTreeTests {
 
         /** DON'T EDIT THIS FUNCTION */
 
-        int t2 = 2; //degree 2
-        int t5 = 5; // degree 5
-
         System.out.println("Test started! this might take a while...");
-        if(backTrackingAVLTree_FindErrors(5,t2)){
-            if(backTrackingAVLTree_FindErrors(15,t2)){
-                if(backTrackingAVLTree_FindErrors(50,t2)){
-                    if(backTrackingAVLTree_FindErrors(250,t2)){
-                        if(backTrackingAVLTree_FindErrors(5,t5)){
-                            if(backTrackingAVLTree_FindErrors(15,t5)){
-                                if(backTrackingAVLTree_FindErrors(50,t5)){
-                                    if(backTrackingAVLTree_FindErrors(250,t5)){
+        if(backTrackingAVLTree_FindErrors(5)){
+            if(backTrackingAVLTree_FindErrors(15)){
+                if(backTrackingAVLTree_FindErrors(50)){
+                    if(backTrackingAVLTree_FindErrors(250)){
+                        if(backTrackingAVLTree_FindErrors(5)){
+                            if(backTrackingAVLTree_FindErrors(15)){
+                                if(backTrackingAVLTree_FindErrors(50)){
+                                    if(backTrackingAVLTree_FindErrors(250)){
                                         System.out.println("YOU ARE THE FUCKING BEST!");
                                     }
                                 }
