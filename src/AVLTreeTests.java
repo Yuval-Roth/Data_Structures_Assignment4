@@ -24,7 +24,7 @@ import java.util.HashSet;
 public class AVLTreeTests {
     public static void main(String[] args) {
 
-        boolean Read_The_Instructions = false;
+        boolean Read_The_Instructions = true;
         if(Read_The_Instructions == false) throw new RuntimeException("READ THE INSTRUCTIONS FIRST!");
 
         // main tests
@@ -67,6 +67,13 @@ public class AVLTreeTests {
         while (successCounter <= 30000000/(count*count)) {
             String[] memory = new String[count];
             BacktrackingAVL tree = new BacktrackingAVL();
+            try{
+                tree.Backtrack();
+            }
+            catch(Exception e){
+                System.out.println("Empty tree backtrack test failed");
+                break;
+            }
             Random random = new Random();
             HashSet<Integer> set = new HashSet<>(count*2);
             int[] nums = new int[count];

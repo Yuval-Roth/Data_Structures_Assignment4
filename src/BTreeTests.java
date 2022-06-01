@@ -24,7 +24,7 @@ public class BTreeTests {
 
     public static void main(String[] args) {
 
-        boolean Read_The_Instructions = false;
+        boolean Read_The_Instructions = true;
         if(Read_The_Instructions == false) throw new RuntimeException("READ THE INSTRUCTIONS FIRST!");
 
 
@@ -60,6 +60,13 @@ public class BTreeTests {
         while (successCounter <= 30000000/(count*count)) {
             String[] memory = new String[count];
             BacktrackingBTree<Integer> tree = new BacktrackingBTree<>(t);
+            try{
+                tree.Backtrack();
+            }
+            catch(Exception e){
+                System.out.println("Empty tree backtrack test failed");
+                return false;
+            }
             Random random = new Random();
             int[] nums = new int[count];
             for (int i = 0; i < count; ) {
