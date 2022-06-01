@@ -69,7 +69,6 @@ public class BacktrackingAVL extends AVLTree {
     public int Select(int index) {
        if(root == null) throw new NoSuchElementException("root is null");
 
-
        Node current = root;
 
        while(current != null){
@@ -89,7 +88,7 @@ public class BacktrackingAVL extends AVLTree {
                current = current.right;
            }
        }
-        throw new NoSuchElementException("index doesn't exist");
+        throw new NoSuchElementException("index "+index+" doesn't exist");
     }
 
     public int Rank(int value) {
