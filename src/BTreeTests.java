@@ -94,7 +94,8 @@ public class BTreeTests {
                 successCounter++;
             } catch (Exception e) {
                 System.out.println("==========================================================");
-                System.out.println("Instace " + successCounter + ": FAIL.");
+                System.out.println("Instance " + successCounter + ": FAIL.");
+                System.out.println("Exception occurred here: " + e.getMessage());
                 System.out.println("Failed at BackTrack number "+instanceTracker);
                 System.out.print("input: "+numsArrayToString(nums));
                 System.out.println();
@@ -155,7 +156,7 @@ public class BTreeTests {
             catch (Exception e) {
                 System.out.println("==========================================================");
                 System.out.println(nums[nums.length-1-i] + " was meant to be removed and it failed");
-                System.out.println("Exception occured here: " + e.getMessage());
+                System.out.println("Exception occurred here: " + e.getMessage());
                 System.out.println();
                 System.out.println("Expected: ");
                 System.out.println(memory[count-1-instanceTracker-1]);
