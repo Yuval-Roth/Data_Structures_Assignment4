@@ -72,7 +72,7 @@ public class AVLTreeTests {
             }
             catch(Exception e){
                 System.out.println("Empty tree backtrack test failed");
-                break;
+                return false;
             }
             Random random = new Random();
             HashSet<Integer> set = new HashSet<>(count*2);
