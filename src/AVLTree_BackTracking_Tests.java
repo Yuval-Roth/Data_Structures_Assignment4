@@ -14,14 +14,18 @@ import java.util.HashSet;
  *
  * At the end of the failed instance presentation, the last line will have
  * a function call printed out which you can copy and paste to main
- * and run it to debug the failed test
+ * and run it to debug the failed test                                            <br/><br/>
+ *
+ * <b>IMPORTANT</b> : If the tests get stuck or something doesn't run correctly, that's likely an
+ * indicator that there's an issue in your code somewhere.
+ * if your code don't have any issues, the test should run smoothly.
  *
  * You can edit BtreeDebugging() as much as you like for debugging but don't
  * edit anything else.
  *
  * @author Yuval Roth
  */
-public class AVLTreeTests {
+public class AVLTree_BackTracking_Tests {
     public static void main(String[] args) {
 
         boolean Read_The_Instructions = true;
@@ -29,9 +33,6 @@ public class AVLTreeTests {
 
         // main tests
         mainTests();
-
-//        showFailedInstanceAVLTree(new int[]{399, -307, 41, -331, 481});
-
 
         /**   example call from end of failed instance presentation  **/
         //AVLTreeDebugging(new int[]{125, -457, 383, -362, 438});
@@ -72,6 +73,7 @@ public class AVLTreeTests {
             }
             catch(Exception e){
                 System.out.println("Empty tree backtrack test failed");
+                System.out.println("Exception: "+e);
                 return false;
             }
             Random random = new Random();
@@ -91,13 +93,9 @@ public class AVLTreeTests {
             int instanceTracker = 1;
             try {
                 for (; instanceTracker <= count; instanceTracker++) {
-                    try {
-                        tree.Backtrack();
-                        if(memory[count-instanceTracker].compareTo(treeToString(tree)) != 0 ){
-                            throw new Exception("Expected and Actual are not the same");
-                        }
-                    } catch (Exception e) {
-                        throw e;
+                    tree.Backtrack();
+                    if (memory[count - instanceTracker].compareTo(treeToString(tree)) != 0) {
+                        throw new Exception("Expected and Actual are not the same");
                     }
                 }
                 successCounter++;
@@ -119,7 +117,7 @@ public class AVLTreeTests {
                 Scanner scanner = new Scanner(System.in);
                 String answer = scanner.next();
                 if (answer.compareTo("y") == 0){
-                    return showFailedInstanceAVLTree(nums,memory,instanceTracker);
+                    return showFailedInstanceAVLTree(nums,memory);
                 }
                 return false;
             }
@@ -127,7 +125,7 @@ public class AVLTreeTests {
         System.out.println("Test passed: count: "+count);
         return true;
     }
-    public static boolean showFailedInstanceAVLTree(int[] nums, String[] memory, int instanceTracker) {
+    public static boolean showFailedInstanceAVLTree(int[] nums, String[] memory) {
 
         /** DON'T EDIT THIS FUNCTION */
 
@@ -170,7 +168,7 @@ public class AVLTreeTests {
                 System.out.println("Exception occured here: " + e.getMessage());
                 System.out.println();
                 System.out.println("Expected: ");
-                System.out.println(memory[count-instanceTracker]);
+                System.out.println(memory[count-1-i]);
                 System.out.println();
                 System.out.println("==========================================================");
                 System.out.println("Actual :");
@@ -180,7 +178,6 @@ public class AVLTreeTests {
                 return false;
             }
             System.out.println("==========================================================");
-            return false;
         }
         return false;
     }

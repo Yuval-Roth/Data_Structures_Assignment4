@@ -12,14 +12,18 @@ import java.util.Scanner;
  *
  * At the end of the failed instance presentation, the last line will have
  * a function call printed out which you can copy and paste to main
- * and run it to debug the failed test
+ * and run it to debug the failed test                                            <br/><br/>
+ *
+ * <b>IMPORTANT</b> : If the tests get stuck on something or something doesn't run correctly,
+ * that's likely an indicator that there's an issue in your code somewhere.
+ * if your code don't have any issues, the test should run smoothly.               <br/><br/>
  *
  * You can edit BtreeDebugging() as much as you like for debugging but don't
  * edit anything else.
  *
  * @author Yuval Roth
  */
-public class BTreeTests {
+public class BTree_BackTracking_Tests {
 
 
     public static void main(String[] args) {
@@ -45,6 +49,8 @@ public class BTreeTests {
         }
         for(int i = 0; i< nums.length;i++){
             tree.Backtrack();
+            System.out.println(tree);
+            System.out.println("=====================");
         }
     }
 
@@ -65,6 +71,7 @@ public class BTreeTests {
             }
             catch(Exception e){
                 System.out.println("Empty tree backtrack test failed");
+                System.out.println("Exception: "+e);
                 return false;
             }
             Random random = new Random();
@@ -78,17 +85,12 @@ public class BTreeTests {
                     i++;
                 }
             }
-
             int instanceTracker = 1;
             try {
                 for (; instanceTracker <= count; instanceTracker++) {
-                    try {
-                        tree.Backtrack();
-                        if(memory[count-instanceTracker].compareTo(tree.toString()) != 0){
-                            throw new Exception("Expected and Actual are not the same");
-                        }
-                    } catch (Exception e) {
-                        throw e;
+                    tree.Backtrack();
+                    if(memory[count-instanceTracker].compareTo(tree.toString()) != 0){
+                        throw new Exception("Expected and Actual are not the same");
                     }
                 }
                 successCounter++;
@@ -109,7 +111,7 @@ public class BTreeTests {
                 Scanner scanner = new Scanner(System.in);
                 String answer = scanner.next();
                 if (answer.compareTo("y") == 0){
-                    showFailedInstanceBTree(nums,memory,instanceTracker);
+                    showFailedInstanceBTree(nums,memory);
                 }
                 return false;
             }
@@ -117,7 +119,7 @@ public class BTreeTests {
         System.out.println("Test passed: t: "+t+", count: "+count);
         return true;
     }
-    public static void showFailedInstanceBTree(int[] nums, String[] memory, int instanceTracker) {
+    public static boolean showFailedInstanceBTree(int[] nums, String[] memory) {
 
         /** DON'T EDIT THIS FUNCTION */
 
@@ -149,7 +151,7 @@ public class BTreeTests {
                 System.out.println();
                 System.out.println(tree);
                 System.out.println();
-                if(memory[count-1-instanceTracker-1].compareTo(tree.toString()) != 0){
+                if(memory[count-1-i].compareTo(tree.toString()) != 0){
                     throw new Exception("Expected and Actual are not the same");
                 }
             }
@@ -159,17 +161,18 @@ public class BTreeTests {
                 System.out.println("Exception occurred here: " + e.getMessage());
                 System.out.println();
                 System.out.println("Expected: ");
-                System.out.println(memory[count-1-instanceTracker-1]);
+                System.out.println(memory[count-1-i]);
                 System.out.println();
                 System.out.println("==========================================================");
                 System.out.println("Actual: ");
-                System.out.println(tree.toString());
+                System.out.println(tree);
                 System.out.println();
                 System.out.println("You can debug your code by calling this from main: |  BtreeDebugging(new int[]"+numsArrayToString(nums)+");  |");
-                break;
+                return false;
             }
             System.out.println("==========================================================");
         }
+        return false;
     }
     public static String numsArrayToString(int[] nums){
 

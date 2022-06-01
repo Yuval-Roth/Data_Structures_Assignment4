@@ -14,38 +14,39 @@ public class BacktrackingBTree<T extends Comparable<T>> extends BTree<T> {
 	}
 	//You are to implement the function Backtrack.
 	public void Backtrack() {
-		Object[] memory = (Object[])stack.pop();
-		BTreeActionType action = (BTreeActionType) memory[0];
-		T value = (T)memory[1];
-		Node<T> node = getNode(value);
-		node.removeKey(value);
-		while(stack.isEmpty() == false && ((Object[])stack.peek())[0] == BTreeActionType.SPLIT){
-			memory = (Object[])stack.pop();
-			T median = (T)memory[1];
-			node = getNode(median);
-			int index = node.indexOf(median);
-			Node<T> rightChild = node.children[index+1];
-			Node<T> leftChild = node.children[index];
+		if(stack.isEmpty() == false) {
+			Object[] memory = (Object[]) stack.pop();
+			BTreeActionType action = (BTreeActionType) memory[0];
+			T value = (T) memory[1];
+			Node<T> node = getNode(value);
+			node.removeKey(value);
+			while (stack.isEmpty() == false && ((Object[]) stack.peek())[0] == BTreeActionType.SPLIT) {
+				memory = (Object[]) stack.pop();
+				T median = (T) memory[1];
+				node = getNode(median);
+				int index = node.indexOf(median);
+				Node<T> rightChild = node.children[index + 1];
+				Node<T> leftChild = node.children[index];
 
-			if(node == root & root.numOfKeys == 1) root = node.getChild(node.indexOf(median));
+				if (node == root & root.numOfKeys == 1) root = node.getChild(node.indexOf(median));
 
-			node.removeChild(index+1);
-			node.removeKey(median);
+				node.removeChild(index + 1);
+				node.removeKey(median);
 
-			leftChild.addKey(median);
-			for(int i = 0; i<rightChild.numOfKeys;i++){
-				leftChild.addKey(rightChild.getKey(i));
-			}
-			if(rightChild.isLeaf() == false){
-				for(int i = 0; i< rightChild.numOfChildren;i++){
-					Node<T> child = rightChild.getChild(i);
-					leftChild.addChild(child);
-					child.parent = rightChild;
+				leftChild.addKey(median);
+				for (int i = 0; i < rightChild.numOfKeys; i++) {
+					leftChild.addKey(rightChild.getKey(i));
+				}
+				if (rightChild.isLeaf() == false) {
+					for (int i = 0; i < rightChild.numOfChildren; i++) {
+						Node<T> child = rightChild.getChild(i);
+						leftChild.addChild(child);
+						child.parent = rightChild;
+					}
 				}
 			}
+			if (root.numOfKeys == 0) root = null;
 		}
-		if(root.numOfKeys == 0) root = null;
-
     }
 	
 	//Change the list returned to a list of integers answering the requirements
