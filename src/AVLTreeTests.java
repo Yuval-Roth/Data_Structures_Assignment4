@@ -103,15 +103,16 @@ public class AVLTreeTests {
                 successCounter++;
             } catch (Exception e) {
                 System.out.println("==========================================================");
-                System.out.println("Instace " + successCounter + ": FAIL.");
+                System.out.println("Instance " + successCounter + ": FAIL.");
+                System.out.println("Exception occurred here: " + e.getMessage());
                 System.out.println("Failed at BackTrack number "+instanceTracker);
                 System.out.print("input: "+numsArrayToString(nums));
                 System.out.println();
-                System.out.println("Expected: ");
+                System.out.println("Expected:");
                 System.out.println(memory[count-instanceTracker]);
                 System.out.println();
                 System.out.println("==========================================================");
-                System.out.println("Actual :");
+                System.out.println("Actual:");
                 System.out.println(treeToString(tree));
                 System.out.println();
                 System.out.println("Show the failed instance? y/n");

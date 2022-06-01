@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class BacktrackingAVL extends AVLTree {
     // For clarity only, this is the default ctor created implicitly.
@@ -39,6 +40,11 @@ public class BacktrackingAVL extends AVLTree {
                     node.parent.right = null;
                 }
                 node.parent.updateHeight();
+                Node current = node.parent;
+                while(current != null){
+                    current.size--;
+                    current = current.parent;
+                }
             }
             else{
                 root = null;
@@ -61,14 +67,37 @@ public class BacktrackingAVL extends AVLTree {
     }
     
     public int Select(int index) {
-        // You should remove the next two lines, after double-checking that the signature is valid!
-        IntegrityStatement.signature(); // Reminder!
-        throw new UnsupportedOperationException("You should implement this");
+       if(root == null) throw new NoSuchElementException("root is null");
+
+
+       Node current = root;
+
+       while(current != null){
+
+           int rank = 1;
+           if(current.left != null){
+               rank += current.left.size;
+           }
+           if(rank == index){
+               return current.value;
+           }
+           else if(rank > index){
+               current = current.left;
+           }
+           else{
+               index -= rank;
+               current = current.right;
+           }
+       }
+        throw new NoSuchElementException("index doesn't exist");
     }
-    
+
     public int Rank(int value) {
-        // You should remove the next two lines, after double-checking that the signature is valid!
-        IntegrityStatement.signature(); // Reminder!
-        throw new UnsupportedOperationException("You should implement this");
+
+    }
+    public static void main(String[] args){
+        BacktrackingAVL tree = new BacktrackingAVL();
+
     }
 }
+

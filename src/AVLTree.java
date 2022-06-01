@@ -16,6 +16,7 @@ public class AVLTree implements Iterable<Integer> {
     	public Node parent = null;
     	public int height = 0;
     	public int value;
+        public int size = 1;
 
     	public Node(int val) {
             this.value = val;
@@ -60,6 +61,8 @@ public class AVLTree implements Iterable<Integer> {
             stack.push(new Object[]{AVLActionType.INSERT, insertedNode});
             return insertedNode;
         }
+
+        node.size++;
 
         if (value < node.value) {
             node.left  = insertNode(node.left, value);
@@ -131,6 +134,19 @@ public class AVLTree implements Iterable<Integer> {
             } else Parent.right = x;
         }
         else root = x;
+
+        //update size
+        int yLeftSize = 0;
+        int yRightSize = 0;
+        if(y.left != null) yLeftSize = y.left.size;
+        if(y.right != null) yRightSize = y.right.size;
+
+        y.size = yLeftSize + yRightSize + 1;
+
+        int xLeftSize = 0;
+        if(x.left != null) xLeftSize = x.left.size;
+
+        x.size = xLeftSize + y.size + 1;
         // Return new root
         return x;
     }
@@ -171,6 +187,20 @@ public class AVLTree implements Iterable<Integer> {
             } else Parent.right = y;
         }
         else root = y;
+
+        //update size
+        int xLeftSize = 0;
+        int xRightSize = 0;
+        if(x.left != null) xLeftSize = x.left.size;
+        if(x.right != null) xRightSize = x.right.size;
+
+        x.size = xLeftSize + xRightSize + 1;
+
+        int yLeftSize = 0;
+        if(y.left != null) yLeftSize = y.left.size;
+
+        y.size = yLeftSize + x.size + 1;
+
         // Return new root
         return y;
     }
