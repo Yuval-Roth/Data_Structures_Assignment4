@@ -28,7 +28,7 @@ import java.util.HashSet;
  */
 public class AVLTree_BackTracking_Tests {
 
-    public static final int version = 7;
+    public static final int version = 8;
 
     public static void main(String[] args) {
 
