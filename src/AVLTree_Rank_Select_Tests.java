@@ -1,7 +1,5 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.NoSuchElementException;
-import java.util.Random;
+import java.util.*;
+
 /**
  *&nbsp;&nbsp;&nbsp;&nbsp;    Instructions:                                       <br/><br/>
  *
@@ -24,7 +22,7 @@ import java.util.Random;
  */
 public class AVLTree_Rank_Select_Tests {
 
-    public static final int version = 6;
+    public static final int version = 7;
 
     public static void main(String[] args){
 
@@ -52,7 +50,7 @@ public class AVLTree_Rank_Select_Tests {
         for (int i = 0; i < nums.length; i++) {
             tree.insert(nums[i]);
         }
-
+        System.out.println(tree.Rank(67));
         /**   Add your code here    **/
     }
 
@@ -106,28 +104,38 @@ public class AVLTree_Rank_Select_Tests {
             try{
                 for(; selectTracker < count; selectTracker++){
                     if(tree.Select(selectTracker+1) != nums[selectTracker]){
-                        throw new Exception("mismatch at "+ (selectTracker+1));
+                        throw new InputMismatchException("mismatch at Select("+ (selectTracker+1)+")");
                     }
                 }
             }
-            catch(Exception e){
-                System.out.println("Select() failed, "+e+" | count: "+count);
+            catch(InputMismatchException e){
+                System.out.println("Select() failed");
+                System.out.println("Exception occurred here: "+e);
                 System.out.println("input: "+numsArrayToString(nums));
-                System.out.println("Failed at index: "+nums[selectTracker]);
+                System.out.println("Failed at index: "+(selectTracker+1));
                 System.out.println("Expected: "+ nums[selectTracker]);
                 try{
                     System.out.println("Actual: "+ tree.Select(selectTracker+1));
                 }
                 catch(Exception k){
-                    System.out.println("Actual: "+ k.getMessage());
+                    System.out.println("Actual: "+ k);
                 }
+                System.out.println();
+                System.out.println("You can debug your code by calling this from main: |  SelectDebugging(new int[]"+numsArrayToString(nums)+");  |");
+                return false;
+            }
+            catch(Exception e){
+                System.out.println("Select() failed");
+                System.out.println("Exception occurred here: "+e);
+                System.out.println("input: "+numsArrayToString(nums));
+                System.out.println("Failed at index: "+(selectTracker+1));
                 System.out.println();
                 System.out.println("You can debug your code by calling this from main: |  SelectDebugging(new int[]"+numsArrayToString(nums)+");  |");
                 return false;
             }
             successCounter++;
         }
-        System.out.println("Select() test passed for count: "+count);
+        System.out.println("Select() test passed for tree size: "+count);
         System.out.println();
         return true;
     }
@@ -173,27 +181,46 @@ public class AVLTree_Rank_Select_Tests {
                 }
             }
             nums = Arrays.stream(nums).sorted().toArray();
-            int rankTracker = 0;
+            int rankTracker = -501;
+            int index = 0;
+            int rank = 0;
             try{
-                for(; rankTracker < count; rankTracker++){
-                    if(tree.Rank(nums[rankTracker]) != rankTracker){
-                        throw new Exception("mismatch at "+ rankTracker);
+                for(; rankTracker < 501; rankTracker++){
+
+                    if(tree.Rank(rankTracker) != rank){
+                        throw new InputMismatchException("mismatch at Rank("+ rankTracker+")");
+                    }
+                    if(rankTracker == nums[index]){
+                       if(index != nums.length-1){
+                           index++;
+                       }
+                       rank++;
                     }
                 }
             }
-            catch(Exception e){
-                System.out.println("Rank() failed, "+e+" | count: "+count);
+            catch(InputMismatchException e){
+                System.out.println("Rank() failed");
+                System.out.println("Exception occurred here: "+e);
                 System.out.println("input: "+numsArrayToString(nums));
                 System.out.println("Failed at value: "+rankTracker);
-                System.out.println("Expected: "+ rankTracker);
-                System.out.println("Actual: "+ tree.Rank(nums[rankTracker]));
+                System.out.println("Expected: "+ rank);
+                System.out.println("Actual: "+ tree.Rank(rankTracker));
+                System.out.println();
+                System.out.println("You can debug your code by calling this from main: |  RankDebugging(new int[]"+numsArrayToString(nums)+");  |");
+                return false;
+            }
+            catch(Exception e){
+                System.out.println("Rank() failed");
+                System.out.println("Exception occurred here: "+e);
+                System.out.println("input: "+numsArrayToString(nums));
+                System.out.println("Failed at value: "+rankTracker);
                 System.out.println();
                 System.out.println("You can debug your code by calling this from main: |  RankDebugging(new int[]"+numsArrayToString(nums)+");  |");
                 return false;
             }
             successCounter++;
         }
-        System.out.println("Rank() test passed for count: "+count);
+        System.out.println("Rank() test passed for tree size: "+count);
         System.out.println();
         return true;
     }
@@ -219,6 +246,7 @@ public class AVLTree_Rank_Select_Tests {
             if(Select_Test(25)){
                 if(Select_Test(50)){
                     if(Select_Test(250)){
+                        System.out.println("This part might take a while...");
                         if(Rank_Test(5)){
                             if(Rank_Test(25)){
                                 if(Rank_Test(50)){

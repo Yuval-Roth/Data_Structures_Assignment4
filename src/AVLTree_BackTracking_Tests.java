@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.HashSet;
@@ -27,7 +28,7 @@ import java.util.HashSet;
  */
 public class AVLTree_BackTracking_Tests {
 
-    public static final int version = 6;
+    public static final int version = 7;
 
     public static void main(String[] args) {
 
@@ -98,14 +99,15 @@ public class AVLTree_BackTracking_Tests {
                 for (; instanceTracker <= count; instanceTracker++) {
                     tree.Backtrack();
                     if (memory[count - instanceTracker].compareTo(treeToString(tree)) != 0) {
-                        throw new Exception("Expected and Actual are not the same");
+                        throw new InputMismatchException("Expected and Actual are not the same");
                     }
                 }
                 successCounter++;
-            } catch (Exception e) {
+            }
+            catch(InputMismatchException e ){
                 System.out.println("==========================================================");
                 System.out.println("Instance " + successCounter + ": FAIL.");
-                System.out.println("Exception occurred here: " + e.getMessage());
+                System.out.println("Exception occurred here: " + e);
                 System.out.println("Failed at BackTrack number "+instanceTracker);
                 System.out.print("input: "+numsArrayToString(nums));
                 System.out.println();
@@ -124,8 +126,23 @@ public class AVLTree_BackTracking_Tests {
                 }
                 return false;
             }
+            catch (Exception e) {
+                System.out.println("==========================================================");
+                System.out.println("Instance " + successCounter + ": FAIL.");
+                System.out.println("Exception occurred here: " + e);
+                System.out.println("Failed at BackTrack number "+instanceTracker);
+                System.out.print("input: "+numsArrayToString(nums));
+                System.out.println();
+                System.out.println("Show the failed instance? y/n");
+                Scanner scanner = new Scanner(System.in);
+                String answer = scanner.next();
+                if (answer.compareTo("y") == 0){
+                    return showFailedInstanceAVLTree(nums,memory);
+                }
+                return false;
+            }
         }
-        System.out.println("Test passed: count: "+count);
+        System.out.println("Test passed for tree size: "+count);
         return true;
     }
     public static boolean showFailedInstanceAVLTree(int[] nums, String[] memory) {
@@ -168,7 +185,7 @@ public class AVLTree_BackTracking_Tests {
             }
             catch (Exception e) {
                 System.out.println(nums[nums.length-1-i] + " was meant to be removed and it failed");
-                System.out.println("Exception occured here: " + e.getMessage());
+                System.out.println("Exception occurred here: " + e.getMessage());
                 System.out.println();
                 System.out.println("Expected: ");
                 System.out.println(memory[count-1-i]);

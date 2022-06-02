@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -25,7 +26,7 @@ import java.util.Scanner;
  */
 public class BTree_BackTracking_Tests {
 
-    public static final int version = 6;
+    public static final int version = 7;
 
     public static void main(String[] args) {
 
@@ -91,14 +92,15 @@ public class BTree_BackTracking_Tests {
                 for (; instanceTracker <= count; instanceTracker++) {
                     tree.Backtrack();
                     if(memory[count-instanceTracker].compareTo(tree.toString()) != 0){
-                        throw new Exception("Expected and Actual are not the same");
+                        throw new InputMismatchException("Expected and Actual are not the same");
                     }
                 }
                 successCounter++;
-            } catch (Exception e) {
+            }
+            catch (InputMismatchException e){
                 System.out.println("==========================================================");
                 System.out.println("Instance " + successCounter + ": FAIL.");
-                System.out.println("Exception occurred here: " + e.getMessage());
+                System.out.println("Exception occurred here: " + e);
                 System.out.println("Failed at BackTrack number "+instanceTracker);
                 System.out.print("input: "+numsArrayToString(nums));
                 System.out.println();
@@ -116,8 +118,23 @@ public class BTree_BackTracking_Tests {
                 }
                 return false;
             }
+            catch (Exception e) {
+                System.out.println("==========================================================");
+                System.out.println("Instance " + successCounter + ": FAIL.");
+                System.out.println("Exception occurred here: " + e);
+                System.out.println("Failed at BackTrack number "+instanceTracker);
+                System.out.print("input: "+numsArrayToString(nums));
+                System.out.println();
+                System.out.println("Show the failed instance? y/n");
+                Scanner scanner = new Scanner(System.in);
+                String answer = scanner.next();
+                if (answer.compareTo("y") == 0){
+                    showFailedInstanceBTree(nums,memory);
+                }
+                return false;
+            }
         }
-        System.out.println("Test passed: t: "+t+", count: "+count);
+        System.out.println("Test passed: t: "+t+", tree size: "+count);
         return true;
     }
     public static boolean showFailedInstanceBTree(int[] nums, String[] memory) {
@@ -153,10 +170,10 @@ public class BTree_BackTracking_Tests {
                 System.out.println(tree);
                 System.out.println();
                 if(memory[count-1-i].compareTo(tree.toString()) != 0){
-                    throw new Exception("Expected and Actual are not the same");
+                    throw new InputMismatchException("Expected and Actual are not the same");
                 }
             }
-            catch (Exception e) {
+            catch(InputMismatchException e){
                 System.out.println("==========================================================");
                 System.out.println(nums[nums.length-1-i] + " was meant to be removed and it failed");
                 System.out.println("Exception occurred here: " + e.getMessage());
@@ -167,6 +184,14 @@ public class BTree_BackTracking_Tests {
                 System.out.println("==========================================================");
                 System.out.println("Actual: ");
                 System.out.println(tree);
+                System.out.println();
+                System.out.println("You can debug your code by calling this from main: |  BtreeDebugging(new int[]"+numsArrayToString(nums)+");  |");
+                return false;
+            }
+            catch (Exception e) {
+                System.out.println("==========================================================");
+                System.out.println(nums[nums.length-1-i] + " was meant to be removed and it failed");
+                System.out.println("Exception occurred here: " + e.getMessage());
                 System.out.println();
                 System.out.println("You can debug your code by calling this from main: |  BtreeDebugging(new int[]"+numsArrayToString(nums)+");  |");
                 return false;

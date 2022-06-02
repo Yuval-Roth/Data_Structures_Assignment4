@@ -1,3 +1,5 @@
+import jdk.jshell.spi.ExecutionControl;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -91,7 +93,7 @@ public class BacktrackingAVL extends AVLTree {
         throw new NoSuchElementException("index "+initialIndex+" doesn't exist");
     }
 
-    public int Rank(int value) {
+    public int Rank(int value){
 
         if(root == null) return 0;
 
