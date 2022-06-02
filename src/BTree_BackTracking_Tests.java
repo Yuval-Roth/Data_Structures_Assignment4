@@ -28,7 +28,7 @@ public class BTree_BackTracking_Tests {
 
     public static void main(String[] args) {
 
-        boolean Read_The_Instructions = true;
+        boolean Read_The_Instructions = false;
         if(Read_The_Instructions == false) throw new RuntimeException("READ THE INSTRUCTIONS FIRST!");
 
 

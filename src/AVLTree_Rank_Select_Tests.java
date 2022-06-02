@@ -3,13 +3,63 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Random;
-
+/**
+ *&nbsp;&nbsp;&nbsp;&nbsp;    Instructions:                                       <br/><br/>
+ *
+ * mainTests() will run a set of tests of random instances of insertions
+ * and Rank() and select() calls                                                            <br/><br/>
+ * The tests will halt if the algorithm finds a mistake and explain why it failed.
+ *
+ * At the end of the failed instance presentation, the last line will have
+ * a function call printed out which you can copy and paste to main
+ * and run it to debug the failed test                                            <br/><br/>
+ *
+ * <b>IMPORTANT</b> : If the tests get stuck on something or something doesn't run correctly,
+ * that's likely an indicator that there's an issue in your code somewhere.
+ * if your code don't have any issues, the test should run smoothly.               <br/><br/>
+ *
+ * You can edit SelectDebugging() and RankDebugging() as much as you like for debugging but don't
+ * edit anything else.
+ *
+ * @author Yuval Roth
+ */
 public class AVLTree_Rank_Select_Tests {
 
     public static void main(String[] args){
-        Rank_Test(5);
-//        main_tests();
+        boolean Read_The_Instructions = false;
+        if(Read_The_Instructions == false) throw new RuntimeException("READ THE INSTRUCTIONS FIRST!");
+
+
+        // main tests
+            main_tests();
+
+        /**   example call from end of failed instance presentation  **/
+        //SelectDebugging(new int[]{-432, 434, -102, -218, 251});
     }
+    public static void SelectDebugging(int[] nums){
+        BacktrackingAVL tree = new BacktrackingAVL();
+        for (int i = 0; i < nums.length; i++) {
+                tree.insert(nums[i]);
+            }
+
+        /**   Add your code here    **/
+
+    }
+    public static void RankDebugging(int[] nums){
+        BacktrackingAVL tree = new BacktrackingAVL();
+        for (int i = 0; i < nums.length; i++) {
+            tree.insert(nums[i]);
+        }
+
+        /**   Add your code here    **/
+    }
+
+
+    //==========================================
+    // DO NOT EDIT THE FUNCTIONS BELOW THIS LINE
+    //==========================================
+
+
     public static boolean Select_Test(int count){
 
         BacktrackingAVL tree = new BacktrackingAVL();
@@ -24,8 +74,9 @@ public class AVLTree_Rank_Select_Tests {
 
         }
         catch(Exception e ){
-            System.out.println("Empty tree Select() failed: "+e);
-            return false;
+            System.out.println("Empty tree select() test result ambiguity");
+            System.out.println("Exception thrown: "+e);
+            System.out.println("Continuing tests.");
         }
         int successCounter = 0;
         while (successCounter <= 30000000/(count*count)) {
@@ -62,12 +113,13 @@ public class AVLTree_Rank_Select_Tests {
                 catch(Exception k){
                     System.out.println("Actual: "+ k.getMessage());
                 }
-
+                System.out.println();
+                System.out.println("You can debug your code by calling this from main: |  SelectDebugging(new int[]"+numsArrayToString(nums)+");  |");
                 return false;
             }
             successCounter++;
         }
-        System.out.println("test passed for count: "+count);
+        System.out.println("Select() test passed for count: "+count);
         return true;
     }
     public static boolean Rank_Test(int count){
@@ -75,15 +127,14 @@ public class AVLTree_Rank_Select_Tests {
         BacktrackingAVL tree = new BacktrackingAVL();
         try{
             if(tree.Rank(5) != 0){
-                throw new Exception("Empty tree Rank(5) failed.");
+                throw new Exception("Expected and actual are not the same");
             }
         }
         catch(NullPointerException e){
             System.out.println("Empty tree Rank(5) failed: "+e);
             return false;
         }
-        catch(NoSuchElementException e){}
-        catch(Exception e ){
+        catch(Exception e){
             System.out.println("Empty tree Rank(5) failed: "+e);
             System.out.println("Expected: 0");
             try{
@@ -124,6 +175,8 @@ public class AVLTree_Rank_Select_Tests {
                 System.out.println("Failed at index: "+rankTracker);
                 System.out.println("Expected: "+ rankTracker);
                 System.out.println("Actual: "+ tree.Rank(nums[rankTracker]));
+                System.out.println();
+                System.out.println("You can debug your code by calling this from main: |  RankDebugging(new int[]"+numsArrayToString(nums)+");  |");
                 return false;
             }
             successCounter++;
