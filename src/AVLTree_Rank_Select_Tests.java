@@ -99,11 +99,11 @@ public class AVLTree_Rank_Select_Tests {
                     i++;
                 }
             }
-            nums = Arrays.stream(nums).sorted().toArray();
+            int[] sortedNums = Arrays.stream(nums).sorted().toArray();
             int selectTracker = 0;
             try{
                 for(; selectTracker < count; selectTracker++){
-                    if(tree.Select(selectTracker+1) != nums[selectTracker]){
+                    if(tree.Select(selectTracker+1) != sortedNums[selectTracker]){
                         throw new InputMismatchException("mismatch at Select("+ (selectTracker+1)+")");
                     }
                 }
@@ -113,7 +113,7 @@ public class AVLTree_Rank_Select_Tests {
                 System.out.println("Exception occurred here: "+e);
                 System.out.println("input: "+numsArrayToString(nums));
                 System.out.println("Failed at index: "+(selectTracker+1));
-                System.out.println("Expected: "+ nums[selectTracker]);
+                System.out.println("Expected: "+ sortedNums[selectTracker]);
                 try{
                     System.out.println("Actual: "+ tree.Select(selectTracker+1));
                 }
@@ -180,7 +180,7 @@ public class AVLTree_Rank_Select_Tests {
                     i++;
                 }
             }
-            nums = Arrays.stream(nums).sorted().toArray();
+            int[] sortedNums = Arrays.stream(nums).sorted().toArray();
             int rankTracker = -501;
             int index = 0;
             int rank = 0;
@@ -190,8 +190,8 @@ public class AVLTree_Rank_Select_Tests {
                     if(tree.Rank(rankTracker) != rank){
                         throw new InputMismatchException("mismatch at Rank("+ rankTracker+")");
                     }
-                    if(rankTracker == nums[index]){
-                       if(index != nums.length-1){
+                    if(rankTracker == sortedNums[index]){
+                       if(index != sortedNums.length-1){
                            index++;
                        }
                        rank++;
