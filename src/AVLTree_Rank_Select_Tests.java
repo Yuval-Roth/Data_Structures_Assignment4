@@ -61,7 +61,7 @@ public class AVLTree_Rank_Select_Tests {
 
 
     public static boolean Select_Test(int count){
-
+        boolean ambiguity = true;
         BacktrackingAVL tree = new BacktrackingAVL();
         try{
             tree.Select(5);
@@ -74,9 +74,12 @@ public class AVLTree_Rank_Select_Tests {
 
         }
         catch(Exception e ){
-            System.out.println("Empty tree select() test result ambiguity");
-            System.out.println("Exception thrown: "+e);
-            System.out.println("Continuing tests.");
+            if(ambiguity) {
+                System.out.println("Empty tree select() test result ambiguity");
+                System.out.println("Exception thrown: " + e);
+                System.out.println("Continuing tests.");
+                ambiguity = false;
+            }
         }
         int successCounter = 0;
         while (successCounter <= 30000000/(count*count)) {
