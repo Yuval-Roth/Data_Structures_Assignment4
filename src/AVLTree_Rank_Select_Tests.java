@@ -37,26 +37,40 @@ public class AVLTree_Rank_Select_Tests {
                 }
             }
             nums = Arrays.stream(nums).sorted().toArray();
+            int selectTracker = 0;
             try{
-                for(int i = 0; i < count; i++){
-                    if(tree.Select(i+1) != nums[i]){
-                        throw new Exception("mismatch at "+ (i+1));
+                for(; selectTracker < count; selectTracker++){
+                    if(tree.Select(selectTracker+1) != nums[selectTracker]){
+                        throw new Exception("mismatch at "+ (selectTracker+1));
                     }
                 }
             }
             catch(Exception e){
                 System.out.println("Select() failed, "+e+" | count: "+count);
+                System.out.println("Failed at value: "+nums[selectTracker]);
+                System.out.println("Expected: "+ nums[selectTracker]);
+                try{
+                    System.out.println("Actual: "+ tree.Select(selectTracker+1));
+                }
+                catch(Exception k){
+                    System.out.println("Actual: "+ k.getMessage());
+                }
+
                 return false;
             }
+            int rankTracker = 0;
             try{
-                for(int i = 0; i < count; i++){
-                    if(tree.Rank(nums[i]) != i){
-                        throw new Exception("mismatch at "+ i);
+                for(; rankTracker < count; rankTracker++){
+                    if(tree.Rank(nums[rankTracker]) != rankTracker){
+                        throw new Exception("mismatch at "+ rankTracker);
                     }
                 }
             }
             catch(Exception e){
                 System.out.println("Rank() failed, "+e+" | count: "+count);
+                System.out.println("Failed at index: "+rankTracker);
+                System.out.println("Expected: "+ rankTracker);
+                System.out.println("Actual: "+ tree.Rank(nums[rankTracker]));
                 return false;
             }
             successCounter++;
