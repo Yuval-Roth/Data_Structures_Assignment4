@@ -1,6 +1,4 @@
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Stack;
+import java.util.*;
 
 
 @SuppressWarnings("unchecked")
@@ -12,7 +10,7 @@ public class BTree<T extends Comparable<T>> {
     protected Node<T> root = null;
     protected int size = 0;
     
-    Stack<Object> stack;
+    Deque<Object> stack;
 
     /**
      * Default Constructor for a 2-3 B-Tree.
@@ -35,7 +33,7 @@ public class BTree<T extends Comparable<T>> {
         
         maxDegree = 2 * order;
 
-        stack = new Stack<>();
+        stack = new LinkedList<>();
     }
 
     //You may add line of code to the "insert" function below.

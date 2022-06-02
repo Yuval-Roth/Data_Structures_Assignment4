@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.Deque;
 
 
 public class AVLTree implements Iterable<Integer> {
@@ -40,11 +41,11 @@ public class AVLTree implements Iterable<Integer> {
     protected Node root;
     
     //You may add fields here.
-    Stack<Object> stack;
+    Deque<Object> stack;
 
     public AVLTree() {
     	this.root = null;
-        stack = new Stack<Object>();
+        stack = new LinkedList<>();
     }
     
     /*
