@@ -25,6 +25,7 @@ import java.util.Scanner;
  */
 public class BTree_BackTracking_Tests {
 
+    public static final int version = 6;
 
     public static void main(String[] args) {
 
@@ -194,6 +195,7 @@ public class BTree_BackTracking_Tests {
         int t2 = 2; //degree 2
         int t5 = 5; // degree 5
 
+        System.out.println("Tests version: "+version);
         System.out.println("Test started! this might take a while...");
         if(backTrackingBTree_FindErrors(5,t2)){
             if(backTrackingBTree_FindErrors(15,t2)){

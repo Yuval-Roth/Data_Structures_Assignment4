@@ -197,10 +197,10 @@ public class AVLTree implements Iterable<Integer> {
 
         x.size = xLeftSize + xRightSize + 1;
 
-        int yLeftSize = 0;
-        if(y.left != null) yLeftSize = y.left.size;
+        int yRightSize = 0;
+        if(y.right != null) yRightSize = y.right.size;
 
-        y.size = yLeftSize + x.size + 1;
+        y.size = yRightSize + x.size + 1;
 
         // Return new root
         return y;
@@ -293,8 +293,8 @@ public class AVLTree implements Iterable<Integer> {
     {
         if(current.right != null) output = toString(current.right,spaces + "        ",output);
 
-        if (current.parent != null) output += spaces + current.value+"("+current.parent.value+")"+"\n";
-        else output += spaces + current.value+"(root)"+"\n";
+        if (current.parent != null) output += spaces + current.value+"("+current.parent.value+":"+current.size+")"+"\n";
+        else output += spaces + current.value+"(root:"+current.size+")"+"\n";
 
         if(current.left != null) output = toString(current.left,spaces + "        ",output);
         return output;

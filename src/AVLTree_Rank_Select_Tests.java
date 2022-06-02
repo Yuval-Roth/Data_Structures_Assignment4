@@ -24,7 +24,10 @@ import java.util.Random;
  */
 public class AVLTree_Rank_Select_Tests {
 
+    public static final int version = 6;
+
     public static void main(String[] args){
+
         boolean Read_The_Instructions = false;
         if(Read_The_Instructions == false) throw new RuntimeException("READ THE INSTRUCTIONS FIRST!");
 
@@ -60,6 +63,9 @@ public class AVLTree_Rank_Select_Tests {
 
 
     public static boolean Select_Test(int count){
+
+        /** DON'T EDIT THIS FUNCTION */
+
         boolean ambiguity = true;
         BacktrackingAVL tree = new BacktrackingAVL();
         try{
@@ -74,8 +80,8 @@ public class AVLTree_Rank_Select_Tests {
         }
         catch(Exception e ){
             if(ambiguity) {
-                System.out.println("Empty tree select() test result ambiguity");
-                System.out.println("Exception thrown: " + e);
+                System.out.println("Empty tree select() test result is ambiguous. the result could be good or bad, but i can't tell.");
+                System.out.println("Exception thrown in the empty tree test: " + e);
                 System.out.println("Continuing tests.");
                 ambiguity = false;
             }
@@ -107,7 +113,7 @@ public class AVLTree_Rank_Select_Tests {
             catch(Exception e){
                 System.out.println("Select() failed, "+e+" | count: "+count);
                 System.out.println("input: "+numsArrayToString(nums));
-                System.out.println("Failed at value: "+nums[selectTracker]);
+                System.out.println("Failed at index: "+nums[selectTracker]);
                 System.out.println("Expected: "+ nums[selectTracker]);
                 try{
                     System.out.println("Actual: "+ tree.Select(selectTracker+1));
@@ -122,9 +128,13 @@ public class AVLTree_Rank_Select_Tests {
             successCounter++;
         }
         System.out.println("Select() test passed for count: "+count);
+        System.out.println();
         return true;
     }
     public static boolean Rank_Test(int count){
+
+        /** DON'T EDIT THIS FUNCTION */
+
 
         BacktrackingAVL tree = new BacktrackingAVL();
         try{
@@ -174,7 +184,7 @@ public class AVLTree_Rank_Select_Tests {
             catch(Exception e){
                 System.out.println("Rank() failed, "+e+" | count: "+count);
                 System.out.println("input: "+numsArrayToString(nums));
-                System.out.println("Failed at index: "+rankTracker);
+                System.out.println("Failed at value: "+rankTracker);
                 System.out.println("Expected: "+ rankTracker);
                 System.out.println("Actual: "+ tree.Rank(nums[rankTracker]));
                 System.out.println();
@@ -184,6 +194,7 @@ public class AVLTree_Rank_Select_Tests {
             successCounter++;
         }
         System.out.println("Rank() test passed for count: "+count);
+        System.out.println();
         return true;
     }
     public static String numsArrayToString(int[] nums){
@@ -200,6 +211,10 @@ public class AVLTree_Rank_Select_Tests {
         return numsArray;
     }
     public static void main_tests(){
+
+        /** DON'T EDIT THIS FUNCTION */
+
+        System.out.println("Tests version: "+version);
         if(Select_Test(5)){
             if(Select_Test(25)){
                 if(Select_Test(50)){

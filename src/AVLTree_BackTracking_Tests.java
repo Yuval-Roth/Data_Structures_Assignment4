@@ -26,6 +26,9 @@ import java.util.HashSet;
  * @author Yuval Roth
  */
 public class AVLTree_BackTracking_Tests {
+
+    public static final int version = 6;
+
     public static void main(String[] args) {
 
         boolean Read_The_Instructions = false;
@@ -217,7 +220,7 @@ public class AVLTree_BackTracking_Tests {
     public static void mainTests(){
 
         /** DON'T EDIT THIS FUNCTION */
-
+        System.out.println("Tests version: "+version);
         System.out.println("Test started! this might take a while...");
         if(backTrackingAVLTree_FindErrors(5)){
             if(backTrackingAVLTree_FindErrors(15)){
