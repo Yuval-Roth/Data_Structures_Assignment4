@@ -20,6 +20,7 @@ public class BacktrackingBTree<T extends Comparable<T>> extends BTree<T> {
 			T value = (T) memory[1];
 			Node<T> node = getNode(value);
 			node.removeKey(value);
+			size--;
 			while (stack.isEmpty() == false && ((Object[]) stack.peek())[0] == BTreeActionType.SPLIT) {
 				memory = (Object[]) stack.pop();
 				T median = (T) memory[1];

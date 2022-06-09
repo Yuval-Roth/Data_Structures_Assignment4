@@ -126,15 +126,8 @@ public class BacktrackingAVL extends AVLTree {
     }
     public static void main(String[] args){
         BacktrackingAVL tree = new BacktrackingAVL();
-        tree.insert(6);
-        tree.insert(3);
-        tree.insert(7);
-        tree.insert(9);
-        tree.insert(11);
-        tree.insert(13);
-        tree.insert(17);
-        tree.insert(19);
-        tree.insert(23);
+        for (int i =0; i < 2*2*2*2*2*2-1 ; i++)
+            tree.insert(i);
         tree.printTree();
         System.out.println(tree.Rank(11));
     }
