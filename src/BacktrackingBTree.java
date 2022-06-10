@@ -46,7 +46,7 @@ public class BacktrackingBTree<T extends Comparable<T>> extends BTree<T> {
 					}
 				}
 			}
-			if (root.numOfKeys == 0) root = null;
+//			if (root.numOfKeys == 0) root = null;
 		}
     }
 	

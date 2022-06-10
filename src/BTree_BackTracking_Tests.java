@@ -26,7 +26,7 @@ import java.util.Scanner;
  */
 public class BTree_BackTracking_Tests {
 
-    public static final int version = 8;
+    public static final int version = 9;
 
     public static void main(String[] args) {
 
@@ -92,6 +92,12 @@ public class BTree_BackTracking_Tests {
                 for (; instanceTracker <= count; instanceTracker++) {
                     tree.Backtrack();
                     if(memory[count-instanceTracker].compareTo(tree.toString()) != 0){
+                        if(memory[count-instanceTracker].compareTo("Empty tree") == 0  & tree.toString().compareTo("~~~ \n") == 0){
+                            throw new InputMismatchException("Tree is empty and root is not null." +
+                                    "\n============================================================\n" +
+                                    "*You need to set the root to be null when the tree is empty*" +
+                                    "\n============================================================");
+                        }
                         throw new InputMismatchException("Expected and Actual are not the same");
                     }
                 }
