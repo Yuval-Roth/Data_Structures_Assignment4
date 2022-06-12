@@ -14,23 +14,39 @@ public class BacktrackingBTree<T extends Comparable<T>> extends BTree<T> {
 	}
 	//You are to implement the function Backtrack.
 	public void Backtrack() {
+
+		//check if there something to backtrack
 		if(stack.isEmpty() == false) {
+
+			//extract data from the stack
 			Object[] memory = (Object[]) stack.pop();
 			BTreeActionType action = (BTreeActionType) memory[0];
 			T value = (T) memory[1];
+			//-------------------------------
+
+			//search node and remove the key
 			Node<T> node = getNode(value);
 			node.removeKey(value);
 			size--;
+			//----------------------------
+
+			// while reversing splits
 			while (stack.isEmpty() == false && ((Object[]) stack.peek())[0] == BTreeActionType.SPLIT) {
+
+				//extract data from the stack
 				memory = (Object[]) stack.pop();
 				T median = (T) memory[1];
+
+				//find where the median is
 				node = getNode(median);
 				int index = node.indexOf(median);
 				Node<T> rightChild = node.children[index + 1];
 				Node<T> leftChild = node.children[index];
 
+				//assign a new root in the case where the root was split
 				if (node == root & root.numOfKeys == 1) root = node.getChild(node.indexOf(median));
 
+				//merge everything to the left
 				node.removeChild(index + 1);
 				node.removeKey(median);
 
@@ -45,7 +61,9 @@ public class BacktrackingBTree<T extends Comparable<T>> extends BTree<T> {
 						child.parent = rightChild;
 					}
 				}
+				//------------------------------
 			}
+			//root is empty so remove the node
 			if (root.numOfKeys == 0) root = null;
 		}
     }

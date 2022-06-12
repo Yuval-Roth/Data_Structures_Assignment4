@@ -72,7 +72,6 @@ public class AVLTree implements Iterable<Integer> {
             stack.push(new Object[]{AVLActionType.INSERT, insertedNode});
             return insertedNode;
         }
-
         node.size++;
 
         if (value < node.value) {
