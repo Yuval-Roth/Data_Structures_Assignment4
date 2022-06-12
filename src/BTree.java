@@ -4,14 +4,14 @@ import java.util.*;
 @SuppressWarnings("unchecked")
 public class BTree<T extends Comparable<T>> {
 
+    //----------------------B tree's Fields---------------------//
     final private int maxDegree;
-
-
     protected Node<T> root = null;
     protected int size = 0;
     
-    Deque<Object> stack;
+    protected Deque<Object> stack;
 
+    //--------------------B Tree's Constructors---------------//
     /**
      * Default Constructor for a 2-3 B-Tree.
      */
@@ -36,6 +36,7 @@ public class BTree<T extends Comparable<T>> {
         stack = new LinkedList<>();
     }
 
+    //---------------------B Tree's Methods-----------------------//
     //You may add line of code to the "insert" function below.
     /**
      * Insert the value into this BTree

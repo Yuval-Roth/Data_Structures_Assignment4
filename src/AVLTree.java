@@ -12,17 +12,21 @@ public class AVLTree implements Iterable<Integer> {
         ROTATION
     }
     protected class Node {
+
+        //-------------------Node's Fields-------------------//
     	public Node left = null;
     	public Node right = null;
     	public Node parent = null;
     	public int height = 0;
     	public int value;
-        public int size = 1;
+        protected int size = 1;
 
+        //----------------Node's Constructor----------------//
     	public Node(int val) {
             this.value = val;
         }
 
+        //-----------------Node's Methods-------------------//
         public void updateHeight() {
             int leftHeight = (left == null) ? -1 : left.height;
             int rightHeight = (right == null) ? -1 : right.height;
@@ -37,20 +41,26 @@ public class AVLTree implements Iterable<Integer> {
             return leftHeight - rightHeight;
         }
     }
-    
+
+    //----------------------AVL Tree's Fields-------------------------//
     protected Node root;
     
     //You may add fields here.
-    Deque<Object> stack;
+    protected Deque<Object> stack;
 
+    //---------------------AVL Tree's Constructor--------------------//
     public AVLTree() {
     	this.root = null;
         stack = new LinkedList<>();
     }
-    
+
+    //----------------------AVL Tree's Methods----------------------//
+
     /*
      * IMPORTANT: You may add code to both "insert" and "insertNode" functions.
      */
+
+
 	public void insert(int value) {
     	root = insertNode(root, value);
     }

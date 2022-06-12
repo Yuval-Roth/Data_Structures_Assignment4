@@ -13,15 +13,19 @@ public class BacktrackingAVL extends AVLTree {
 	//You are to implement the function Backtrack.
     public void Backtrack() {
 
+        //While reversing rotations
         while(stack.isEmpty() == false && ((Object[])stack.peek())[0] == AVLActionType.ROTATION){
             Object[] memory = (Object[])stack.pop();
             Node node = (Node)memory[1];
             AVLActionType action = (AVLActionType)memory[2];
+            // Reverse the rotations that were performed
             switch (action){
+                // Rotation was LeftRotate - do RightRotate
                 case LEFTROTATE:
                     rotateRight(node.parent);
                     stack.pop();
                     break;
+                // Rotation was RightRotate - do LeftRotate
                 case RIGHTROTATE:
                     rotateLeft(node.parent);
                     stack.pop();
@@ -29,25 +33,30 @@ public class BacktrackingAVL extends AVLTree {
                 }
 
         }
+
+        //After reversing rotations, remove the inserted node
         if(stack.isEmpty() == false){
             Object[] memory = (Object[])stack.pop();
-            AVLActionType action = (AVLActionType) memory[0];
             Node node = (Node)memory[1];
 
+            //delete the last inserted node
             if(node != root){
-                if(node.parent.left == node){
+                if(node.parent.left == node){ //node is a left child
                     node.parent.left = null;
                 }
-                else{
+                else{ //node is a right child
                     node.parent.right = null;
                 }
-                node.parent.updateHeight();
+                //update size and height
                 Node current = node.parent;
                 while(current != null){
                     current.size--;
+                    current.updateHeight();
                     current = current.parent;
                 }
             }
+
+            //The removed node was the root
             else{
                 root = null;
             }
@@ -69,7 +78,8 @@ public class BacktrackingAVL extends AVLTree {
     }
     
     public int Select(int index) {
-        int initialIndex = index;
+
+       int initialIndex = index;
        if(root == null) throw new NoSuchElementException("root is null");
 
         Node current = root;
@@ -126,15 +136,11 @@ public class BacktrackingAVL extends AVLTree {
     }
     public static void main(String[] args){
         BacktrackingAVL tree = new BacktrackingAVL();
+        int counter = 0;
+        for(int )
         tree.insert(6);
-        tree.insert(3);
-        tree.insert(7);
-        tree.insert(9);
-        tree.insert(11);
-        tree.insert(13);
-        tree.insert(17);
-        tree.insert(19);
-        tree.insert(23);
+
+
         tree.printTree();
         System.out.println(tree.Rank(11));
     }

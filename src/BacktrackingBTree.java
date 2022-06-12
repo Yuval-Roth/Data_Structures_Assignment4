@@ -15,11 +15,15 @@ public class BacktrackingBTree<T extends Comparable<T>> extends BTree<T> {
 	//You are to implement the function Backtrack.
 	public void Backtrack() {
 		if(stack.isEmpty() == false) {
+			//remove the last inserted key
 			Object[] memory = (Object[]) stack.pop();
 			BTreeActionType action = (BTreeActionType) memory[0];
 			T value = (T) memory[1];
 			Node<T> node = getNode(value);
 			node.removeKey(value);
+			size--;
+
+			//repairing the splits performed in the tree caused by the last inserted key
 			while (stack.isEmpty() == false && ((Object[]) stack.peek())[0] == BTreeActionType.SPLIT) {
 				memory = (Object[]) stack.pop();
 				T median = (T) memory[1];
@@ -28,6 +32,7 @@ public class BacktrackingBTree<T extends Comparable<T>> extends BTree<T> {
 				Node<T> rightChild = node.children[index + 1];
 				Node<T> leftChild = node.children[index];
 
+				//inserted key is in the root alone
 				if (node == root & root.numOfKeys == 1) root = node.getChild(node.indexOf(median));
 
 				node.removeChild(index + 1);
