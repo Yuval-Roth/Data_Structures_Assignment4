@@ -22,7 +22,7 @@ import java.util.*;
  */
 public class AVLTree_Rank_Select_Tests {
 
-    public static final int version = 8;
+    public static final int version = 10;
 
     public static void main(String[] args){
 
